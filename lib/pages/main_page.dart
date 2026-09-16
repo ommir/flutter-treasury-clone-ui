@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
+import 'profile_page.dart';
 import 'assets_page.dart';
 import 'voucher_page.dart';
-import 'profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -15,6 +15,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
+  static const _hiddenNavIndexes = {2};
+
   final List<Widget> _pages = const [
     HomePage(),
     AssetsPage(),
@@ -24,10 +26,13 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final hideNav = _hiddenNavIndexes.contains(_currentIndex);
+
     return Scaffold(
       body: _pages[_currentIndex],
-
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: hideNav
+          ? null
+          : BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
